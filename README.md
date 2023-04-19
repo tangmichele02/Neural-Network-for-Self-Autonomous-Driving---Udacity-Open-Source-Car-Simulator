@@ -4,10 +4,10 @@ This project leverages the power of deep neural networks to design a model capab
 # Introduction 
 The development of deep neural network models has revolutionized the field of autonomous driving, providing a powerful tool for training autonomous cars to navigate and make decisions on the road. This project will leverage the power of deep neural networks to design a model capable of simulating human driving in a virtual environment with the help of open-source self-driving car simulators. Developing a self-driving car is a complex process that requires automating an array of human functions, such as perception of surroundings, following traffic laws, and decision-making. A typical self-driving car would incorporate many machine learning models with each model performing different functions; for instance, the self-driving car needs a computer-vision model to identify traffic lights and road signs as well as a reinforcement-learning model to make decisions, such as whether the car will take a turn. Also, the development of self-driving cars extends beyond the machine learning algorithms to entail development of sensors, radars, and hardware components that can provide accurate inputs to the machine learning models. I decided to use an open-source car simulator to focus only on the machine learning portion of the self-driving car development. Previous research has examined the development of self-driving cars using simulators. There are many open-source self-driving car simulators with each simulator having an edge over the others in particular areas and lagging behind in other areas. Some of the important factors to consider while picking a simulator are perception, localization, vehicle control, and creation of dynamic 3D virtual environments (Kaur et al.). The simulator I'm using is UDACITY’s autonomous car simulator. Previous research that analyzed this simulator pointed out an important disadvantage, which is the absence of noise in the simulator environment making the simulator unrealistic in the real world (Duong). Nonetheless, the car simulator allows me to source the data by using the training mode, which is a game-like mode wherein I drive the car in a track, and I take decisions to move the car depending on the surrounding environment; the model provides us with a complete dataset of the car surroundings in form of three images from the front and sides of the car and the decisions I took in the form of the steering angle, speed, and acceleration. Using this data, I will design a deep-learning-based regression model that takes the images of the surrounding as an input and predicts the correct steering angle as an output.
 
-# Methods #
+# Methods 
 ## Data Augmentation:
 ### Balancing the number of Turns
-The data was sourced from the Udacity car simulator using two different routes. The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle. Also, the distribution of the steering angle was unbalanced because most steering angles were just pointing straight. This unbalance was tackled by deleting a randomized set of the data that pointed straight.
+The data was sourced from Udacity's open-source car simulator using two different routes. The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle. Also, the distribution of the steering angle was unbalanced because most steering angles were just pointing straight. This unbalance was tackled by deleting a randomized set of the data that pointed straight.
 
 ![image](https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png)
 
@@ -15,7 +15,7 @@ This is a histogram of the steering angles of the first route before augmenting 
 
 ![image](https://user-images.githubusercontent.com/47282229/233097025-7e1825b7-9eb6-4d48-a6fa-f582de42d167.png)
 
-This is the distribution after doing data augmentation
+This is the distribution after data augmentation
 
 ![image](https://user-images.githubusercontent.com/47282229/233097291-6fb66353-efec-443b-b9e3-d543d4dc2e23.png)
 
@@ -44,7 +44,7 @@ This image show the original image vs the pre-processed image.
 
 ## Model Design
 ### Model 1
-The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, I used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, I used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, I used three dropout layers, blocking 50% of the inputs after each of the first three dense layers.
+The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, I used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, I used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, I used three dropout layers, dropping 50% of the inputs after each of the first three dense layers.
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 _________________________________________________________________
@@ -156,17 +156,17 @@ Non-trainable params: 0
 
 # Discussion 
 ## Evaluation Metric
-The main metric used to evaluate model performance is the loss calculated as the mean squared error between the actual and the predicted steering angle. MSE was used over MAE to penalize extreme errors because in real-life, a very bad prediction may cause loss of life and property.
+The main metric used to evaluate model performance is the loss calculated as the mean squared error between the actual and the predicted steering angle. MSE was used over MAE to penalize extreme errors because in real-life, a considerably poor prediction will cause a car accident and may lead to loss of life and property.
 
 ## Choice of Activation Function
-I tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were over-fitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively.
+I tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were over-fitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively. ReLU was picked as the main activation function to counter over-fitting. 
 
 ![image](https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png)
 ![image](https://user-images.githubusercontent.com/47282229/233093616-fcfea842-4574-49a5-9eaf-69ab432a9bc4.png)
 
 
 ## Lighter Model vs Original
-While the original model had 342,523 parameters and 20 layers compared to 222,395 parameters and 18 layers for the lighter model, the running time  – using mini-batch of size set to 100  – of the former was 30 minutes and 50 seconds while that of the latter was 27 minutes and 55 seconds. So, there was no significant difference when it came to running time. The validation loss after the last epoch while using ReLU activation function and mini-batch of size 100 in the original model was 0.0847 while it was 0.0955 for the lighter model. While using the eLU activation function, the validation loss after the last epoch for the original model was 0.0978 compared to 0.0927 for the lighter model. With one model having lower loss with ReLU and the other having lower loss with eLU and given that the difference in losses and running time are almost negligible, I can say there is no significant difference between the two models. The lighter model, however, was less prone to over-fitting as shown in the graphs.
+While the original model had 342,523 parameters and 20 layers compared to 222,395 parameters and 18 layers for the lighter model, the running time -– using mini-batch of size 100  -– of the former was 30 minutes and 50 seconds while that of the latter was 27 minutes and 55 seconds. So, there was no significant difference when it came to running time. The validation loss of the original model --  while using ReLU activation function and mini-batch of size 100 -- was 0.0847 while it was 0.0955 for the lighter model. While using the eLU activation function, the validation loss after the last epoch for the original model was 0.0978 compared to 0.0927 for the lighter model. With one model having lower loss with ReLU and the other having lower loss with eLU and given that the difference in losses and running time are almost negligible, I can say there is no significant difference between the two models. The lighter model, however, was less prone to over-fitting as shown in the graphs.
 
 ![image](https://user-images.githubusercontent.com/47282229/233093796-e28124ad-fac9-48de-8440-f6eb9ab38949.png)
 ![image](https://user-images.githubusercontent.com/47282229/233093971-7196b037-d641-489b-83c2-9856f69cc27d.png)
@@ -177,18 +177,23 @@ While the original model had 342,523 parameters and 20 layers compared to 222,39
 
 ## Stochastic gradient descent vs Mini-batch stochastic gradient descent vs Batch gradient descent
 
-In terms of running time, the stochastic gradient descent took 53 minutes and 40 seconds compared to 30 minutes and 50 seconds for the mini-batch stochastic gradient with the mini-batch being set to 100. The limited computational capabilities of my local machine made it impossible to run the batch gradient descent as the tensor generated didn’t fit into memory. The largest batch I could use was 1/16 the size of the data. The running time of the model with mini-batch = 1/16 was 27 minutes and 38 seconds. 1/16 of the data size is 424. 
+In terms of running time, the stochastic gradient descent took 53 minutes and 40 seconds compared to 30 minutes and 50 seconds for the mini-batch stochastic gradient with the mini-batch being set to 100. The limited computational capabilities of my local machine made it impossible to run the batch gradient descent as the tensor generated didn’t fit into memory. The largest batch I could use was 1/16 the size of the data. The running time of the model with mini-batch of size 1/16 of the data was 27 minutes and 38 seconds. 1/16 of the data size is 424. 
 
-In terms of over-fitting, both the mini-batch stochastic gradient with mini-batch of size = 100 and mini-batch of size = 1/16 of the data were not over-fitting after 25 epochs while the stochastic gradient descent started over-fitting in the fourth epoch. ReLU activation function was used while comparing the models
+In terms of over-fitting, both the mini-batch stochastic gradient with mini-batch of size 100 and mini-batch of size 1/16 of the data were not over-fitting after 25 epochs while the stochastic gradient descent started over-fitting in the fourth epoch. ReLU activation function was used while comparing the models
 
-In terms of the loss values, the loss value of stochastic gradient descent in the last epoch was 0.0959 while it was 0.0847 for the mini-batch stochastic gradient descent and 0.0862 for the 1/16 model.
+In terms of the loss values, the loss value of stochastic gradient descent in the last epoch was 0.0959 while it was 0.0847 for the mini-batch stochastic gradient descent and 0.0862 for the 1/16 model. From the results, the mini-batch stochastic gradient descent with batch of size 100 achieved lowest validation loss, had a good running time, and avoided over-fitting, so it's preferred over the alternatives.
  
  ![image](https://user-images.githubusercontent.com/47282229/233094456-2c409345-fb6f-4880-8df6-b6380985901e.png)
 ![image](https://user-images.githubusercontent.com/47282229/233094607-22a68b8d-d757-4e22-bfee-061df1a996d8.png)
 ![image](https://user-images.githubusercontent.com/47282229/233095554-dd35aec8-5c16-42f4-89cb-5cca1a28c549.png)
 
 ## ResNet50, ResNet101, Xception, and MobileNetV2
-To evaluate my model performance, I decided to deploy various pre-designed models along with pre-trained weights from Keras Applications. I chose Xception, ResNet50, and ResNet101 as the heavy models and MobileNetV2 as the light model. The validation loss for the four models ranged from 0.3 to 0.32 in the 25 epochs, which implies that either they were stuck in a local minimum or that the models reached their maximum performance. Also, the heavy models took significantly longer compared to my light model, which was expected given the depth and the number of parameters. For instance, the Xception model took 168 minutes to complete the 25 epochs. I was planning for further testing with those models to determine whether the model was actually stuck in a local minimum, but the computational power of my local device was an obstacle.
+To evaluate my model performance, I decided to deploy various pre-designed models along with pre-trained weights from Keras Applications. I chose Xception, ResNet50, and ResNet101 as the heavy models and MobileNetV2 as the light model. The validation loss for the four models ranged from 0.3 to 0.32 in the 25 epochs, which implies that either they were stuck in a local minimum or that the models reached their maximum performance. Also, the heavy models took significantly longer compared to my lighter model, which was expected given the depth and the number of parameters. For instance, the Xception model took 168 minutes to complete the 25 epochs and the ResNet 50 took 268 minutes. I was planning for further testing with those models to determine whether the model was actually stuck in a local minimum, but the computational power of my local device was an obstacle.
+
+![image](https://user-images.githubusercontent.com/47282229/233204129-0b5e1a7d-1721-4d40-9467-cf1cf44493b8.png)
+![image](https://user-images.githubusercontent.com/47282229/233204157-cc4327f6-46af-4368-82db-fee372195a50.png)
+![image](https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png)
+
 
 # References:
 * Duong, M.T., Do, T.D., Le, M.H. (2018). Navigating Self-Driving Vehicles Using Convolutional Neural Network. 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), 607-610, https://ieeexplore.ieee.org/abstract/document/8595533.
