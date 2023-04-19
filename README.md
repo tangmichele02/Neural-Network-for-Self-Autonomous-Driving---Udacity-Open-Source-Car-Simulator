@@ -8,8 +8,24 @@ The development of deep neural network models has revolutionized the field of au
 ## Data Augmentation:
 ### Balancing the number of Turns
 The data was sourced from the Udacity car simulator using two different routes. The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle. Also, the distribution of the steering angle was unbalanced because most steering angles were just pointing straight. This unbalance was tackled by deleting a randomized set of the data that pointed straight.
+
+![image](https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png)
+
+This is a histogram of the steering angles of the first route before augmenting data.
+
+![image](https://user-images.githubusercontent.com/47282229/233097025-7e1825b7-9eb6-4d48-a6fa-f582de42d167.png)
+
+This is the distribution after doing data augmentation
+
+![image](https://user-images.githubusercontent.com/47282229/233097291-6fb66353-efec-443b-b9e3-d543d4dc2e23.png)
+
+The number of right and left turns is more balanced compared to the original data, and the distribution of the data is more uniform after removing some of the data corresponding to going straight.
+
 ### Noise
 To make the model more robust and deployable, I augmented the data by adding noise in the form of randomized rotations, shifts, and blurs. Furthermore, I decided to change the brightness of some of the images randomly to ensure the model is capable of working in both day and night and in shade. Also, the added noise will help the model escape local minimum and avoid over-fitting.
+This image shows an image after and before adding noise.
+![image](https://user-images.githubusercontent.com/47282229/233096656-ca066551-9f71-456a-a3eb-f4a2e67118cb.png)
+
 ## Data Pre-Processing
 ### Normalization
 I normalized the pixel values to lie between 0 and 1 to reduce the effect of variations in lighting, contrast, and color.
@@ -21,6 +37,11 @@ I standardized the pixel values to have consistent mean and standard deviation t
 I cropped the image to disregard irrelevant features and decreased the image size for lighter, faster processing
 ### Gaussian Blur
 I used Gaussian Blur in image pre-processing to reduce image noise and smooth out details. 
+
+This image show the original image vs the pre-processed image.
+
+![image](https://user-images.githubusercontent.com/47282229/233095819-8d84fbda-7a07-42b8-8c5e-af4118b2395a.png)
+
 ## Model Design
 ### Model 1
 The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, I used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, I used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, I used three dropout layers, blocking 50% of the inputs after each of the first three dense layers.
