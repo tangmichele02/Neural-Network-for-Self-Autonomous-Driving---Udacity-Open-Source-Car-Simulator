@@ -44,7 +44,7 @@ This image show the original image vs the pre-processed image.
 
 ## Model Design
 ### Model 1
-The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, I used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, I used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, I used three dropout layers, dropping 50% of the inputs after each of the first three dense layers.
+The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, I used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, I used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, I used three dropout layers, dropping 50% of the inputs after each of the first three dense layers. In modile compiling, ADAM optimizer was used with a learning rate of 0.0001.
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 _________________________________________________________________
@@ -176,8 +176,7 @@ While the original model had 342,523 parameters and 20 layers compared to 222,39
 
 
 ## Stochastic gradient descent vs Mini-batch stochastic gradient descent vs Batch gradient descent
-
-In terms of running time, the stochastic gradient descent took 53 minutes and 40 seconds compared to 30 minutes and 50 seconds for the mini-batch stochastic gradient with the mini-batch being set to 100. The limited computational capabilities of my local machine made it impossible to run the batch gradient descent as the tensor generated didn’t fit into memory. The largest batch I could use was 1/16 the size of the data. The running time of the model with mini-batch of size 1/16 of the data was 27 minutes and 38 seconds. 1/16 of the data size is 424. 
+In terms of running time, the stochastic gradient descent took 53 minutes and 40 seconds compared to 30 minutes and 50 seconds for the mini-batch stochastic gradient with the mini-batch being set to 100. The limited computational capabilities of my local machine made it impossible to run the batch gradient descent as the tensor generated didn’t fit into memory. The largest batch I could use was 1/16 the size of the data. The running time of the model with mini-batch of size 1/16 of the data was 27 minutes and 38 seconds. 1/16 of the data size is 424 images. The GPU I'm using is RTX 2060 Ti laptop version for reference.
 
 In terms of over-fitting, both the mini-batch stochastic gradient with mini-batch of size 100 and mini-batch of size 1/16 of the data were not over-fitting after 25 epochs while the stochastic gradient descent started over-fitting in the fourth epoch. ReLU activation function was used while comparing the models
 
@@ -194,6 +193,12 @@ To evaluate my model performance, I decided to deploy various pre-designed model
 ![image](https://user-images.githubusercontent.com/47282229/233204157-cc4327f6-46af-4368-82db-fee372195a50.png)
 ![image](https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png)
 
+## Conclusion
+
+
+# Reflection 
+## Future Development and Recommendations
+Another way to test the model's robustness is using the data from route 1 as the training data and the data from route 2 as the testing data and vice versa to see how the model works in completely new environments. Contingent on available computational resources, the model shold be tested with varying batch sizes larger than 1/16 the size of the data. Furthermore, to tune more hyper-parameters, such as the learning rate of the Adam optimizer, the choice of activation function, and the depth and the width of layers, further testing has to be executed while varying those parameters until the best results are achieved in terms of validation loss and over-fitting. Also, the effect of noise and pre-processing functions should be quantified through testing with and without the noise and pre-processing function.
 
 # References:
 * Duong, M.T., Do, T.D., Le, M.H. (2018). Navigating Self-Driving Vehicles Using Convolutional Neural Network. 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), 607-610, https://ieeexplore.ieee.org/abstract/document/8595533.
