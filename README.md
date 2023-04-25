@@ -9,9 +9,9 @@ Developing a self-driving car is a complex process that requires automating an a
 
 We decided to use an open-source car simulator to focus only on the machine learning portion of the self-driving car development. And the most common form of machine learning algorithms used in autonomous cars is neural networks. Four of the most common deep learning methods used in the development of self-driving cars are convolutional neural networks, recurrent neural networks, auto-encoders, and deep reinforcement learning [^1]. The problems the models need to solve include obstacle detection, scene classification and understanding, lane recognition, path planning, motion control, and traffic signs and lights recognition [^1]. Previous research has put emphasis on safety by developing models capable of dealing with bad drivers of other cars, right of way laws, unstructured roads, pedestrians, and responsibility for actions [^2].
 
-Previous research has also examined the development of self-driving cars using simulators. There are many open-source self-driving car simulators, such as CARLA and LGSVL, with each simulator having an edge over the others in particular areas and lagging behind in other areas. Some of the important factors to consider while picking a simulator are perception, localization, vehicle control, and creation of dynamic 3D virtual environments [^3]. The simulator we are using is Udacity’s autonomous car simulator [^4]. Previous research that analyzed this simulator pointed out an important disadvantage, which is the absence of noise in the simulator environment making the simulator unrealistic in the real world [^5]. Nonetheless, the car simulator allows us to source the data by using the training mode, which is a game-like mode wherein we drive the car in a track, and we take decisions to move the car depending on the surrounding environment; the model provides us with a complete dataset of the car surroundings in form of three images from the front and sides of the car and the decisions we took in the form of the steering angle, speed, and acceleration. Using this data, we will design a deep-learning-based regression model that takes the images of the surrounding, which can come in the form of a front-facing camera photo or a side-facing camera photo as an input and predicts the correct steering angle as an output. This project sets itself apart from Udacity tutorials and other projects on the internet by deploying pre-designed models, such as ResNet50, Resnet101, and Xception, to compare and contrast their performance with our model. 
-
-
+Previous research has also examined the development of self-driving cars using simulators. There are many open-source self-driving car simulators, such as CARLA and LGSVL, with each simulator having an edge over the others in particular areas and lagging behind in other areas. Some of the important factors to consider while picking a simulator are perception, localization, vehicle control, and creation of dynamic 3D virtual environments [^3]. The simulator we are using is Udacity’s autonomous car simulator [^4]. Previous research that analyzed this simulator pointed out an important disadvantage, which is the absence of noise in the simulator environment making the simulator unrealistic in the real world [^5]. Nonetheless, the car simulator allows us to source the data by using the training mode, which is a game-like mode wherein we drive the car in a track, and we take decisions to move the car depending on the surrounding environment; the model provides us with a complete dataset of the car surroundings in form of three images from the front and sides of the car and the decisions we took in the form of the steering angle, speed, and acceleration. Using this data, we will design a deep-learning-based regression model that takes the images of the surrounding, which can come in the form of a front-facing camera photo or a side-facing camera photo as an input and predicts the correct steering angle as an output. This project sets itself apart from Udacity tutorials and other projects on the internet by deploying pre-designed models, such as ResNet50, Resnet101, and Xception, to compare and contrast their performance with our model.
+![image](https://user-images.githubusercontent.com/47282229/234185589-9713bb93-a7db-47df-8003-e164b73da702.png)
+ 
 
 # Methods
 ## Data Sourcing
@@ -19,15 +19,36 @@ The self-driving car simulator that we are currently using to collect the datase
 
 ## Data Augmentation:
 ### Balancing the number of Turns
-The data was sourced from Udacity's open-source car simulator using the two different routes. The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle. Also, the distribution of the steering angle was imbalanced because most steering angles were just pointing straight. This unbalance was tackled by deleting a randomized set of the data that pointed straight.
-
+The data was sourced from Udacity's open-source car simulator using the two different routes. The following figure displays an image from each route.
 ![image](https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png)
 
-This is a histogram of the steering angles of the first route before augmenting data.
+The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle.
+```
+# this functions flips the image and reverses the steering angle to account for the flip
+def balance(image, angle):
+    image = cv2.flip(image, 1)
+    angle = -angle
+    return image, angle
+
+
+# balance right and left turns
+pivot = len(images_route_1_balanced)
+for i in range(3000):
+    # Gets a random index of route_1 data since the imbalance is concentrated in route_1 data
+    index = random.randint(0, pivot - 1)
+    images_balanced[index], angles_balanced[index] = balance(images_balanced[index], angles_balanced[index])
+    images_route_1_balanced[index], angles_route_1_balanced[index] = balance(images_route_1_balanced[index], angles_route_1_balanced[index])
+
+```
+This figure displays the effect of the balance function.
+![image](https://user-images.githubusercontent.com/47282229/234185181-7770ecc5-6ecc-4b07-9d57-ebfbf2cef95a.png)
+
+
+Also, the distribution of the steering angle was imbalanced because most steering angles were just pointing straight. This imbalance was tackled by deleting a randomized set of the data that pointed straight. This histogram shows the distribution of the steering angles of the first route before augmenting data.
 
 ![image](https://user-images.githubusercontent.com/47282229/233097025-7e1825b7-9eb6-4d48-a6fa-f582de42d167.png)
 
-This is the distribution after data augmentation
+And this histogram shows the distribution after data augmentation
 
 ![image](https://user-images.githubusercontent.com/47282229/233097291-6fb66353-efec-443b-b9e3-d543d4dc2e23.png)
 
