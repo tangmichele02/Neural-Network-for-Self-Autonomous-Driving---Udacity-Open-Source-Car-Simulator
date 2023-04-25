@@ -1,4 +1,4 @@
-# Neural Network Model to Simulate Autonomous Driving on Udacity Open Source Car Simulator
+
 ## By Aser Abdelfatah and Michele Tang
 This project leverages the power of deep neural networks to design a model capable of simulating human driving in a virtual environment with the help of Udacity open-source self-driving car simulator.
 
@@ -250,8 +250,8 @@ For the model, another way to test the it's robustness is using the data from ro
 For the ethics investigation, one way to continue this work is to explore the field of explainable artificial intelligence and consider how that changes the landscape of inductive risk for engineers. Explainable artificial intelligence might help engineers have more control over their models and increase understanding of models, which could have a large impact on risk of error. Next time, we might consider doing more exploratory work into fields of self-driving car ethics that are not specific to moral responsiblity. 
 
 # References:
-* M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
-* P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
+[^1]: M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
+[^2]: P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
 * J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. https://doi.org/10.3390/app10082749
 * S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, 2017. 
 * N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. doi: 10.1109/MSPEC.2016.7473149.
