@@ -1,4 +1,3 @@
-
 ## By Aser Abdelfatah and Michele Tang
 This project leverages the power of deep neural networks to design a model capable of simulating human driving in a virtual environment with the help of Udacity open-source self-driving car simulator.
 
@@ -63,7 +62,7 @@ This image shows an image after and before adding noise.
 ### Normalization
 We normalized the pixel values to lie between 0 and 1 to reduce the effect of variations in lighting, contrast, and color.
 ### YUV
-We decided to use YUV color space over RGB to separate color and brightness information, allowing for more efficient analysis of the image data.
+We decided to use YUV color space over RGB to separate color and brightness information, allowing for more efficient analysis of the image data. [^19]
 ### Standardization
 We standardized the pixel values to have consistent mean and standard deviation to standardize the brightness and contrast of the images, making them more comparable and easier to process by the neural network.
 ### Resize
@@ -78,112 +77,14 @@ This image shows the original image vs the pre-processed image.
 ## Model Design
 ### Model 1
 The model used 7 convolution layers with each one having 1.5 more filters than the previous one. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, we used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, we used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, we used three dropout layers, dropping 50% of the inputs after each of the first three dense layers. In model compiling, ADAM optimizer was used with a learning rate of 0.0001. The model had 342,523 parameters.
-_________________________________________________________________
-Layer (type)             	Output Shape          	Param #   
-_________________________________________________________________
-
-conv2d_23 (Conv2D)       	(None, 64, 198, 18)   	504  	 
-_________________________________________________________________
-conv2d_24 (Conv2D)       	(None, 62, 196, 24)   	3912 	 
-_________________________________________________________________
-max_pooling2d_12 (MaxPooling (None, 31, 98, 24)    	0    	 
-_________________________________________________________________
-conv2d_25 (Conv2D)       	(None, 29, 96, 36)    	7812 	 
-_________________________________________________________________
-conv2d_26 (Conv2D)       	(None, 27, 94, 48)    	15600	 
-_________________________________________________________________
-max_pooling2d_13 (MaxPooling (None, 13, 47, 48)    	0    	 
-_________________________________________________________________
-conv2d_27 (Conv2D)       	(None, 11, 45, 64)    	27712	 
-_________________________________________________________________
-conv2d_28 (Conv2D)       	(None, 9, 43, 96)     	55392	 
-_________________________________________________________________
-max_pooling2d_14 (MaxPooling (None, 4, 21, 96)     	0    	 
-_________________________________________________________________
-conv2d_29 (Conv2D)       	(None, 2, 19, 128)    	110720    
-_________________________________________________________________
-max_pooling2d_15 (MaxPooling (None, 1, 9, 128)     	0    	 
-_________________________________________________________________
-dropout_12 (Dropout)     	(None, 1, 9, 128)     	0    	 
-_________________________________________________________________
-flatten_3 (Flatten)      	(None, 1152)          	0    	 
-_________________________________________________________________
-dense_9 (Dense)          	(None, 100)           	115300    
-_________________________________________________________________
-dropout_13 (Dropout)     	(None, 100)           	0    	 
-_________________________________________________________________
-dense_10 (Dense)         	(None, 50)            	5050 	 
-_________________________________________________________________
-dropout_14 (Dropout)     	(None, 50)            	0    	 
-_________________________________________________________________
-dense_11 (Dense)         	(None, 10)            	510  	 
-_________________________________________________________________
-dropout_15 (Dropout)     	(None, 10)            	0    	 
-_________________________________________________________________
-output (Dense)           	(None, 1)             	11   	 
-_________________________________________________________________
-
-Total params: 342,523
-_________________________________________________________________
-
-Trainable params: 342,523
-_________________________________________________________________
-
-Non-trainable params: 0
-_________________________________________________________________
-None
+![model_plot](https://user-images.githubusercontent.com/47282229/234191447-4564edfb-a510-4c42-9040-fc4e9c7fb132.png)
+![image](https://user-images.githubusercontent.com/47282229/234192391-dea2144a-f816-4854-a606-8af8fc3c7647.png)
 
 
 ### Model 2
 Model 2 is a slightly lighter version of model 1, using 5 convolutional layers instead of 7 while keeping the same number of layers of other types. The focus was on decreasing the number of convolutional layers because they are by far more computationally intensive compared to fully-connected, drop_out, and max_pooling layers. This model has 222,395 and consists of a total of 18 layers.
-
-
-_________________________________________________________________
-Layer (type)             	Output Shape          	Param #   
-_________________________________________________________________
-conv2d_11 (Conv2D)       	(None, 64, 198, 24)   	672  	 
-_________________________________________________________________
-max_pooling2d_4 (MaxPooling2 (None, 32, 99, 24)    	0    	 
-_________________________________________________________________
-conv2d_12 (Conv2D)       	(None, 30, 97, 36)    	7812 	 
-_________________________________________________________________
-conv2d_13 (Conv2D)       	(None, 28, 95, 48)    	15600	 
-_________________________________________________________________
-max_pooling2d_5 (MaxPooling2 (None, 14, 47, 48)    	0    	 
-_________________________________________________________________
-conv2d_14 (Conv2D)       	(None, 12, 45, 64)    	27712	 
-_________________________________________________________________
-max_pooling2d_6 (MaxPooling2 (None, 6, 22, 64)     	0    	 
-_________________________________________________________________
-conv2d_15 (Conv2D)       	(None, 4, 20, 64)     	36928	 
-_________________________________________________________________
-max_pooling2d_7 (MaxPooling2 (None, 2, 10, 64)     	0    	 
-_________________________________________________________________
-dropout_4 (Dropout)      	(None, 2, 10, 64)     	0    	 
-_________________________________________________________________
-flatten_1 (Flatten)      	(None, 1280)          	0    	 
-_________________________________________________________________
-dense_3 (Dense)          	(None, 100)           	128100    
-_________________________________________________________________
-dropout_5 (Dropout)      	(None, 100)           	0    	 
-_________________________________________________________________
-dense_4 (Dense)          	(None, 50)            	5050 	 
-_________________________________________________________________
-dropout_6 (Dropout)      	(None, 50)            	0    	 
-_________________________________________________________________
-dense_5 (Dense)          	(None, 10)            	510  	 
-_________________________________________________________________
-dropout_7 (Dropout)      	(None, 10)            	0    	 
-_________________________________________________________________
-output (Dense)           	(None, 1)             	11   	 
-_________________________________________________________________
-Total params: 222,395
-_________________________________________________________________
-
-Trainable params: 222,395
-_________________________________________________________________
-
-Non-trainable params: 0
+![image](https://user-images.githubusercontent.com/47282229/234192646-d72d9f0b-b394-48e5-bc29-ffc29cec9ca5.png)
+![image](https://user-images.githubusercontent.com/47282229/234192744-10953712-3836-4b71-868a-8007d998fc92.png)
 
 
 
@@ -331,3 +232,4 @@ For the ethics investigation, one way to continue this work is to explore the fi
 
 [18] Q. Rao and J. Frtunikj, "Deep Learning for Self-Driving Cars: Chances and Challenges," 2018 IEEE/ACM 1st International Workshop on Software Engineering for AI in Autonomous Systems (SEFAIAS), Gothenburg, Sweden, 2018, pp. 35-38.
 
+[19] M. Podpora, G. P. Korbas, A.  Kawala-Janik, “YUV vs RGB – Choosing a Color Space for Human-Machine Interaction,” 2014 Federated Conference on Computer Science and Information Systems, Warsaw, Poland, 2014, pp 29-34
