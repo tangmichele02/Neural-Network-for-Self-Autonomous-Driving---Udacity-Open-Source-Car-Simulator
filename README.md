@@ -250,20 +250,20 @@ For the model, another way to test the it's robustness is using the data from ro
 For the ethics investigation, one way to continue this work is to explore the field of explainable artificial intelligence and consider how that changes the landscape of inductive risk for engineers. Explainable artificial intelligence might help engineers have more control over their models and increase understanding of models, which could have a large impact on risk of error. Next time, we might consider doing more exploratory work into fields of self-driving car ethics that are not specific to moral responsiblity. 
 
 # References:
-[^1]: M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
-[^2]: P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
-* J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. https://doi.org/10.3390/app10082749
-* S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, 2017. 
-* N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. doi: 10.1109/MSPEC.2016.7473149.
-* P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015.
-* S. Karnouskos, "Self-Driving Car Acceptance and the Role of Ethics," in IEEE Transactions on Engineering Management, vol. 67, no. 2, pp. 252-265, May 2020. doi: 10.1109/TEM.2018.2877307.
-* S. Nyholm, J. Smids, "The Ethics of Accident-Algorithms for Self-Driving Cars: an Applied Trolley Problem?," in Ethical Theory and Moral Practice, vol. 19, pp. 1275-1289, Jul. 2016. https://doi.org/10.1007/s10677-016-9745-2
-* T. Holstein, G. Dodig-Crnkovic, P. Pelliccione, "Ethical and Social Aspects of Self-Driving Cars," ARXIV, Jan. 2018. https://arxiv.org/abs/1802.04103
-* H. Douglas, "Inductive Risk and Values in Science," Philosophy of Science, vol. 67, no. 4, pp. 559-579, Dec, 2000. http://www.jstor.org/stable/188707
-* S. Diekmann, M. Peterson, "The Role of Non-Epistemic Values in Engineering Models," Science and Engineering Ethics, vol. 19, no. 1, pp. 207-218, 2013. https://doi.org/10.1007/s11948-011-9300-4
-* C. G. Hempel, "Science and Human Values," in Aspects of Scientific Explanation and Other Essays in the Philosophy of Science, The Free Press, 1965. pp. 81-96
-* K. Karaca, "Values and inductive risk in machine learning modelling: the case of binary classification models," in European Journal for Philosophy of Science,  vol. 11, no. 102, Oct. 2021. https://doi.org/10.1007/s13194-021-00405-1
-* E. Sullivan. "How Values Shape the Machine Learning Opacity Problem," in Scientific Understanding and Representation, I. Lawler, K. Khalifa, E. Shech, Routledge, 2022, pp. 306-322.
-* E. Sullivan. "Understanding from Machine Learning Models," in The British Journal for the Philosophy of Science, vol. 73, no. 1, pp. 109-133, 2022.
-* Q. Rao and J. Frtunikj, "Deep Learning for Self-Driving Cars: Chances and Challenges," 2018 IEEE/ACM 1st International Workshop on Software Engineering for AI in Autonomous Systems (SEFAIAS), Gothenburg, Sweden, 2018, pp. 35-38.
-* R. Salay, R. Queiroz, K. Czarnecki, "An analysis of ISO 26262: Using machine learning safely in automotive software," in ARVIX, 2017. https://arxiv.org/abs/1709.02435
+[1] M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
+[2] P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
+[3] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. https://doi.org/10.3390/app10082749
+[4] S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, 2017.
+[5] N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. doi: 10.1109/MSPEC.2016.7473149.
+[6] P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015.
+[7] S. Karnouskos, "Self-Driving Car Acceptance and the Role of Ethics," in IEEE Transactions on Engineering Management, vol. 67, no. 2, pp. 252-265, May 2020. doi: 10.1109/TEM.2018.2877307.
+[8] S. Nyholm, J. Smids, "The Ethics of Accident-Algorithms for Self-Driving Cars: an Applied Trolley Problem?," in Ethical Theory and Moral Practice, vol. 19, pp. 1275-1289, Jul. 2016. https://doi.org/10.1007/s10677-016-9745-2
+[9] T. Holstein, G. Dodig-Crnkovic, P. Pelliccione, "Ethical and Social Aspects of Self-Driving Cars," ARXIV, Jan. 2018. https://arxiv.org/abs/1802.04103
+[10] H. Douglas, "Inductive Risk and Values in Science," Philosophy of Science, vol. 67, no. 4, pp. 559-579, Dec, 2000. http://www.jstor.org/stable/188707
+[11] S. Diekmann, M. Peterson, "The Role of Non-Epistemic Values in Engineering Models," Science and Engineering Ethics, vol. 19, no. 1, pp. 207-218, 2013. https://doi.org/10.1007/s11948-011-9300-4
+[12] C. G. Hempel, "Science and Human Values," in Aspects of Scientific Explanation and Other Essays in the Philosophy of Science, The Free Press, 1965. pp. 81-96
+[13] K. Karaca, "Values and inductive risk in machine learning modelling: the case of binary classification models," in European Journal for Philosophy of Science,  vol. 11, no. 102, Oct. 2021. https://doi.org/10.1007/s13194-021-00405-1
+[14] E. Sullivan. "How Values Shape the Machine Learning Opacity Problem," in Scientific Understanding and Representation, I. Lawler, K. Khalifa, E. Shech, Routledge, 2022, pp. 306-322.
+[15] E. Sullivan. "Understanding from Machine Learning Models," in The British Journal for the Philosophy of Science, vol. 73, no. 1, pp. 109-133, 2022.
+[16] Q. Rao and J. Frtunikj, "Deep Learning for Self-Driving Cars: Chances and Challenges," 2018 IEEE/ACM 1st International Workshop on Software Engineering for AI in Autonomous Systems (SEFAIAS), Gothenburg, Sweden, 2018, pp. 35-38.
+[17] R. Salay, R. Queiroz, K. Czarnecki, "An analysis of ISO 26262: Using machine learning safely in automotive software," in ARVIX, 2017. https://arxiv.org/abs/1709.02435
