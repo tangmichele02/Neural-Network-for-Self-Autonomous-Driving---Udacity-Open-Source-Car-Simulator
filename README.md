@@ -744,6 +744,9 @@ With one model having lower loss with ReLU and the other having lower loss with 
  </p>
  
 ## Effect of Noise
+
+To quantify the effect of adding noise on model performance, we tested the original model using ReLU activation function and mini-batch of size = 100 with and without adding noise to the training data. Results visualized below show that the augmented data considerably reduced both validation and training loss, especially in the starting epochs. The lowest validation loss of the model with augmented data was recorded in the 23rd epoch at 0.0839, which is lower than the 0.0847 recorded in the 25th epoch as the minimum validation loss of the model without data. This improvement in performance can be explained by the effect of adding noise in smoothing out the data and reducing the impact of outliers. And since the noise is completely randomized, we avoid introducing bias that can negatively impact the performance of the model. However, we notice the model with noise started over-fitting and recorded higher validation loss in the 24th and the 25th epochs, which may seem counterintuitive since adding noise primarily aims to reduce overfitting. However, this can be explained by the fact that we added a very high level of noise, so the model started memorizing the noise in the training data, leading to overfitting. This issue will be tackled by reducing noise level.
+
 <p float="left">
     <img src=https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/236673310-ffd3a7c4-7ab6-4ae4-ad34-6df7e5421ecb.png width="500" height="320">
