@@ -843,7 +843,7 @@ For the ethics investigation, one way to continue this work is to explore the fi
 
 
 # References:
-[1] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. https://doi.org/10.3390/app10082749
+[1] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. [https://doi.org/10.3390/app10082749](https://doi.org/10.3390/app10082749)
 
 [2] S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, 2017.
 
