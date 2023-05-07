@@ -842,7 +842,6 @@ Self-driving car ethics is a complicated and complex area of research. There are
 For the ethics investigation, one way to continue this work is to explore the field of explainable artificial intelligence and consider how that changes the landscape of inductive risk for engineers. Explainable artificial intelligence might help engineers have more control over their models and increase understanding of models, which could have a large impact on risk of error. Next time, we might consider doing more exploratory work into fields of self-driving car ethics that are not specific to moral responsibility.
 
 
-# References:
 [^1] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. [https://doi.org/10.3390/app10082749](https://doi.org/10.3390/app10082749)
 
 [^2] S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, Aug. 2017. https://arxiv.org/abs/1708.06374
