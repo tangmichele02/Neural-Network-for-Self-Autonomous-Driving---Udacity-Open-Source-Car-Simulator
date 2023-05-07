@@ -771,7 +771,7 @@ The following table displays the validation loss values for each of the models.
 
 The mini-batch stochastic gradient descent with batch size = 100 achieved the lowest validation loss, had a good running time, and avoided over-fitting, so it's preferred over the alternatives.
 
- <p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233094456-2c409345-fb6f-4880-8df6-b6380985901e.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/233094607-22a68b8d-d757-4e22-bfee-061df1a996d8.png width="500" height="325">
  </p>
@@ -783,7 +783,7 @@ The mini-batch stochastic gradient descent with batch size = 100 achieved the lo
 ## ResNet50, ResNet101, Xception, and MobileNetV2
 To evaluate the model performance, we decided to deploy various pre-designed models along with pre-trained weights from Keras Applications. We chose Xception, ResNet50, and ResNet101 as the heavy models and MobileNetV2 as the light model. The validation loss for the four models ranged from 0.3 to 0.32 in the 25 epochs, which implies that either they were stuck in a local minimum or that the models reached their maximum performance. Also, the heavy models took significantly longer compared to the lighter model, which was expected given the depth and the number of parameters. For instance, the Xception model took 168 minutes to complete the 25 epochs and the ResNet 50 took 268 minutes. We were planning for further testing with those models while varying the learning rate to determine whether the model was actually stuck in a local minimum, but the computational power of Aser's local device was an obstacle.
 
-<p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233204129-0b5e1a7d-1721-4d40-9467-cf1cf44493b8.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/233204157-cc4327f6-46af-4368-82db-fee372195a50.png width="500" height="325">
  </p>
