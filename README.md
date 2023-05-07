@@ -9,7 +9,8 @@ Developing a self-driving car is a complex process that requires automating an a
 We decided to use an open-source car simulator to focus only on the machine learning portion of the self-driving car development. And the most common form of machine learning algorithms used in autonomous cars is neural networks. Four of the most common deep learning methods used in the development of self-driving cars are convolutional neural networks, recurrent neural networks, auto-encoders, and deep reinforcement learning [^1]. The problems the models need to solve include obstacle detection, scene classification and understanding, lane recognition, path planning, motion control, and traffic signs and lights recognition [^1]. Previous research has put emphasis on safety by developing models capable of dealing with bad drivers of other cars, right of way laws, unstructured roads, pedestrians, and responsibility for actions [^2].
 
 Previous research has also examined the development of self-driving cars using simulators. There are many open-source self-driving car simulators, such as CARLA and LGSVL, with each simulator having an edge over the others in particular areas and lagging behind in other areas. Some of the important factors to consider while picking a simulator are perception, localization, vehicle control, and creation of dynamic 3D virtual environments [^3]. The simulator we are using is Udacity’s autonomous car simulator [^4]. Previous research that analyzed this simulator pointed out an important disadvantage, which is the absence of noise in the simulator environment making the simulator unrealistic in the real world [^5]. Nonetheless, the car simulator allows us to source the data by using the training mode, which is a game-like mode wherein we drive the car in a track, and we take decisions to move the car depending on the surrounding environment; the model provides us with a complete dataset of the car surroundings in form of three images from the front and sides of the car and the decisions we took in the form of the steering angle, speed, and acceleration. Using this data, we will design a deep-learning-based regression model that takes the images of the surrounding, which can come in the form of a front-facing camera photo or a side-facing camera photo as an input and predicts the correct steering angle as an output. This project sets itself apart from Udacity tutorials and other projects on the internet by deploying pre-designed models, such as ResNet50, Resnet101, and Xception, to compare and contrast their performance with our model.
-![image](https://user-images.githubusercontent.com/47282229/234185589-9713bb93-a7db-47df-8003-e164b73da702.png)
+
+<img src="https://user-images.githubusercontent.com/47282229/234185589-9713bb93-a7db-47df-8003-e164b73da702.png"  width="1200" height="300">
  
 
 # Methods
@@ -19,7 +20,8 @@ The self-driving car simulator that we are currently using to collect the datase
 ## Data Augmentation:
 ### Balancing the number of Turns
 The data was sourced from Udacity's open-source car simulator using the two different routes. The following figure displays an image from each route.
-![image](https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png)
+
+<img src=https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png width="1200" height="250">
 
 The first route didn’t have any right turns, so this bias needs to be accounted for or otherwise, the model will fail to predict any right turns. The data was augmented by flipping a random set of the images and negating the steering angle.
 ```
@@ -40,23 +42,26 @@ for i in range(3000):
 
 ```
 This figure displays the effect of the balance function.
-![image](https://user-images.githubusercontent.com/47282229/234185181-7770ecc5-6ecc-4b07-9d57-ebfbf2cef95a.png)
+
+<img src=https://user-images.githubusercontent.com/47282229/234185181-7770ecc5-6ecc-4b07-9d57-ebfbf2cef95a.png width="1200" height="250">
 
 
 Also, the distribution of the steering angle was imbalanced because most steering angles were just pointing straight. This imbalance was tackled by deleting a randomized set of the data that pointed straight. Deleting a randomized set of that data was the easiest solution given that the collected data is fairly large with 19401 images. Other methods to tackle this imbalance include editing the data loader to load only balanced batches of the data, which would stop the need to delete any parts of the data but would be harder in implementation. This histogram shows the distribution of the steering angles of the first route before augmenting data.
-
-![image](https://user-images.githubusercontent.com/47282229/233097025-7e1825b7-9eb6-4d48-a6fa-f582de42d167.png)
+<p align="center">
+<img src=https://user-images.githubusercontent.com/47282229/233097025-7e1825b7-9eb6-4d48-a6fa-f582de42d167.png width="500" height="325">
+</p>
 
 And this histogram shows the distribution after data augmentation
-
-![image](https://user-images.githubusercontent.com/47282229/233097291-6fb66353-efec-443b-b9e3-d543d4dc2e23.png)
-
+<p align="center">
+<img src=https://user-images.githubusercontent.com/47282229/233097291-6fb66353-efec-443b-b9e3-d543d4dc2e23.png  width="500" height="325">
+</p>
 The number of right and left turns is more balanced compared to the original data, and the distribution of the data is more uniform after removing some of the data corresponding to going straight.
 
 ### Noise
 To make the model more robust and deployable, we augmented the data by adding noise in the form of randomized rotations, shifts, and blurs. Furthermore, we decided to change the brightness of some of the images randomly to ensure the model is capable of working in both day and night and in shade. Also, the added noise will help the model escape local minimum and avoid over-fitting.
 This image shows an image after and before adding noise.
-![image](https://user-images.githubusercontent.com/47282229/233096656-ca066551-9f71-456a-a3eb-f4a2e67118cb.png)
+
+<img src=https://user-images.githubusercontent.com/47282229/233096656-ca066551-9f71-456a-a3eb-f4a2e67118cb.png width="1200" height="250">
 
 ## Data Pre-Processing
 ### Normalization
@@ -72,7 +77,7 @@ We used Gaussian Blur in image pre-processing to reduce image noise and smooth o
 
 This image shows the original image vs the pre-processed image.
 
-![image](https://user-images.githubusercontent.com/47282229/233095819-8d84fbda-7a07-42b8-8c5e-af4118b2395a.png)
+<img src= https://user-images.githubusercontent.com/47282229/233095819-8d84fbda-7a07-42b8-8c5e-af4118b2395a.png width="1200" height="250">
 
 ## Model Design
 ### Model 1
@@ -699,8 +704,11 @@ The main metric used to evaluate model performance is the loss calculated as the
 ## Choice of Activation Function
 We tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were over-fitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively. ReLU was picked as the main activation function to counter over-fitting.
 
-![image](https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png)
-![image](https://user-images.githubusercontent.com/47282229/233093616-fcfea842-4574-49a5-9eaf-69ab432a9bc4.png)
+
+<p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/233093616-fcfea842-4574-49a5-9eaf-69ab432a9bc4.png width="500" height="325">
+ </p>
 
 
 ## Lighter Model vs Original
@@ -716,13 +724,23 @@ The table summarizes the differences between the original and the lighter model.
 
 With one model having lower loss with ReLU and the other having lower loss with eLU and given that the difference in losses and running time are almost negligible, we can say there is no significant difference between the two models. The lighter model, however, was less prone to overfitting as shown in the graphs.
 
-![image](https://user-images.githubusercontent.com/47282229/233093796-e28124ad-fac9-48de-8440-f6eb9ab38949.png)
-![image](https://user-images.githubusercontent.com/47282229/233093971-7196b037-d641-489b-83c2-9856f69cc27d.png)
+<p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233093796-e28124ad-fac9-48de-8440-f6eb9ab38949.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/233093971-7196b037-d641-489b-83c2-9856f69cc27d.png width="500" height="325">
+ </p>
+ 
+ <p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233094290-6e37a173-748c-49d3-b3a4-053d1e6cbe55.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/233094117-f2e511e3-2ac7-4af0-938e-3ab6e1389a5c.png width="500" height="325">
+ </p>
+ 
+## Effect of Noise
+<p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/236673310-ffd3a7c4-7ab6-4ae4-ad34-6df7e5421ecb.png width="500" height="320">
 
-![image](https://user-images.githubusercontent.com/47282229/233094290-6e37a173-748c-49d3-b3a4-053d1e6cbe55.png)
-![image](https://user-images.githubusercontent.com/47282229/233094117-f2e511e3-2ac7-4af0-938e-3ab6e1389a5c.png)
-
-
+ </p>
+ 
 ## Stochastic gradient descent vs Mini-batch stochastic gradient descent vs Batch gradient descent
 The following table displays the running time. The GPU we are using is the RTX 2060 Ti laptop version with 6 GB vram for reference.
 
@@ -740,19 +758,29 @@ The following table displays the validation loss values for each of the models.
 | 0.0959                                        |  0.0847                                                                    |             0.0862                                                        |
 
 The mini-batch stochastic gradient descent with batch size = 100 achieved the lowest validation loss, had a good running time, and avoided over-fitting, so it's preferred over the alternatives.
+
+ <p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233094456-2c409345-fb6f-4880-8df6-b6380985901e.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/233094607-22a68b8d-d757-4e22-bfee-061df1a996d8.png width="500" height="325">
+ </p>
  
- ![image](https://user-images.githubusercontent.com/47282229/233094456-2c409345-fb6f-4880-8df6-b6380985901e.png)
-![image](https://user-images.githubusercontent.com/47282229/233094607-22a68b8d-d757-4e22-bfee-061df1a996d8.png)
-![image](https://user-images.githubusercontent.com/47282229/233095554-dd35aec8-5c16-42f4-89cb-5cca1a28c549.png)
+<p align="center">
+ <img src=https://user-images.githubusercontent.com/47282229/233095554-dd35aec8-5c16-42f4-89cb-5cca1a28c549.png width="500" height="325">
+</p>
 
 ## ResNet50, ResNet101, Xception, and MobileNetV2
 To evaluate the model performance, we decided to deploy various pre-designed models along with pre-trained weights from Keras Applications. We chose Xception, ResNet50, and ResNet101 as the heavy models and MobileNetV2 as the light model. The validation loss for the four models ranged from 0.3 to 0.32 in the 25 epochs, which implies that either they were stuck in a local minimum or that the models reached their maximum performance. Also, the heavy models took significantly longer compared to the lighter model, which was expected given the depth and the number of parameters. For instance, the Xception model took 168 minutes to complete the 25 epochs and the ResNet 50 took 268 minutes. We were planning for further testing with those models to determine whether the model was actually stuck in a local minimum, but the computational power of Aser's local device was an obstacle.
 
-![image](https://user-images.githubusercontent.com/47282229/233204129-0b5e1a7d-1721-4d40-9467-cf1cf44493b8.png)
-![image](https://user-images.githubusercontent.com/47282229/233204157-cc4327f6-46af-4368-82db-fee372195a50.png)
-![image](https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png)
+<p float="left">
+    <img src=https://user-images.githubusercontent.com/47282229/233204129-0b5e1a7d-1721-4d40-9467-cf1cf44493b8.png width="500" height="325">
+    <img src=https://user-images.githubusercontent.com/47282229/233204157-cc4327f6-46af-4368-82db-fee372195a50.png width="500" height="325">
+ </p>
+ 
+<p align="center">
+ <img src=https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png width="500" height="325">
+</p>
 
-## Conclusion
+# Conclusion
 In conclusion, the project successfully utilized a convolutional neural network model to accurately predict the steering angle of a self-driving car, surpassing some of the best pre-trained models, such as ResNet50, ResNet101, and Xception. The model was designed with multiple convolutional and fully connected layers, along with appropriate ReLU activation function to enable effective feature extraction and decision-making. The data augmentation techniques, including adding noise and balancing the data, the choice of mini-batch gradient descent, and the use of dropout layers added to the robustness of the model evident by the fact that it was not over-fitting even after 25 epochs -- while using ReLU activation function. A significant pitfall worth noting in model testing and training is the computational limitations of the machine, which prevented further testing of the pre-trained models and the use of batch gradient descent. So, further testing is essential as explained in the next section. Overall, the project highlights the potential of using deep learning techniques, such as convolutional neural networks, to make decisions based on image data and being deployed in developing advanced self-driving car systems.
 
 
