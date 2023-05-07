@@ -843,7 +843,7 @@ For the ethics investigation, one way to continue this work is to explore the fi
 
 
 # References:
-[1] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. [https://doi.org/10.3390/app10082749](https://doi.org/10.3390/app10082749)
+[^1] J. Ni, Y. Chen, Y. Chen, J. Zhu, D. Ali, C. Weidong, “A Survey on Theories and Applications for Self-Driving Cars Based on Deep Learning Methods,” in Applied Sciences, vol. 10, no. 8, 2020. [https://doi.org/10.3390/app10082749](https://doi.org/10.3390/app10082749)
 
 [2] S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, Aug. 2017. https://arxiv.org/abs/1708.06374
 
@@ -855,7 +855,7 @@ For the ethics investigation, one way to continue this work is to explore the fi
 
 [6] N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. https://spectrum.ieee.org/can-you-program-ethics-into-a-selfdriving-car
 
-[7] P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015.
+[7] P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015. https://link.springer.com/chapter/10.1007/978-3-662-45854-9_4
 
 [8] S. Karnouskos, "Self-Driving Car Acceptance and the Role of Ethics," in IEEE Transactions on Engineering Management, vol. 67, no. 2, pp. 252-265, May 2020. https://ieeexplore.ieee.org/document/8542947
 
