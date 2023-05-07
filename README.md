@@ -714,7 +714,7 @@ The main metric used to evaluate model performance is the loss calculated as the
 We tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were over-fitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively. ReLU was picked as the main activation function to counter over-fitting. This resistance to over-fitting can be explained by the fact that the ReLU function sets any negative values to zero, which reduces the complexity of the model and prevents the amplification of noise. However, the choice of activation function alone is unlikely to be the sole cause of overfitting; over-fitting should be further analyzed in the greater context of the network size and complexity, the number of epochs and training iterations, the choice of hyperparameters, etc.
 
 
-<p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/233093616-fcfea842-4574-49a5-9eaf-69ab432a9bc4.png width="500" height="325">
  </p>
@@ -733,12 +733,12 @@ The table summarizes the differences between the original and the lighter model.
 
 With one model having lower loss with ReLU and the other having lower loss with eLU and given that the difference in losses and running time are almost negligible, we can say there is no significant difference between the two models. The lighter model, however, was less prone to overfitting as shown in the graphs.
 
-<p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233093796-e28124ad-fac9-48de-8440-f6eb9ab38949.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/233093971-7196b037-d641-489b-83c2-9856f69cc27d.png width="500" height="325">
  </p>
  
- <p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233094290-6e37a173-748c-49d3-b3a4-053d1e6cbe55.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/233094117-f2e511e3-2ac7-4af0-938e-3ab6e1389a5c.png width="500" height="325">
  </p>
@@ -747,7 +747,7 @@ With one model having lower loss with ReLU and the other having lower loss with 
 
 To quantify the effect of adding noise on model performance, we tested the original model using ReLU activation function and mini-batch of size = 100 with and without adding noise to the training data. Results visualized below show that the augmented data considerably reduced both validation and training loss, especially in the starting epochs. The lowest validation loss of the model with augmented data was recorded in the 23rd epoch at 0.0839, which is lower than the 0.0847 recorded in the 25th epoch as the minimum validation loss of the model without data. This improvement in performance can be explained by the effect of adding noise in smoothing out the data and reducing the impact of outliers. And since the noise is completely randomized, we avoid introducing bias that can negatively impact the performance of the model. However, we notice the model with noise started over-fitting and recorded higher validation loss in the 24th and the 25th epochs, which may seem counterintuitive since adding noise primarily aims to reduce overfitting. However, this can be explained by the fact that we added a very high level of noise, so the model started memorizing the noise in the training data, leading to overfitting. This issue will be tackled by reducing noise level.
 
-<p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/233093506-94cd5cf1-9434-441b-a71c-4c8f63923912.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/236673310-ffd3a7c4-7ab6-4ae4-ad34-6df7e5421ecb.png width="500" height="320">
 
