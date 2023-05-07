@@ -76,16 +76,620 @@ This image shows the original image vs the pre-processed image.
 
 ## Model Design
 ### Model 1
-The model used 7 convolution layers with each one having 1.5 more filters than the previous one to capture more abstractions and complex patterns. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, we used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, we used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, we used three dropout layers, dropping 50% of the inputs after each of the first three dense layers. In model compiling, ADAM optimizer was used with a learning rate of 0.0001. The model had 342,523 parameters.
-![model_plot](https://user-images.githubusercontent.com/47282229/234191447-4564edfb-a510-4c42-9040-fc4e9c7fb132.png)
-![image](https://user-images.githubusercontent.com/47282229/234192391-dea2144a-f816-4854-a606-8af8fc3c7647.png)
+The model used 7 convolution layers with each one having 1.5 more filters than the previous one to capture more abstractions and complex patterns. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, we used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, we used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, we used three dropout layers, dropping 50% of the inputs after each of the first three dense layers. In model compiling, ADAM optimizer was used with a learning rate of 0.0001. The model had a total of 20 layers and 342,523 parameters.
+
+<table>
+  <tr>
+    <td>Layer Number</td>
+    <td>Layer Type</td>
+    <td>Layer Input</td>
+    <td>Layer Output</td>
+    <td>Number of Parameters</td>
+    <td>Layer Hyperparameter</td>
+    <td>Hyperparameter Values</td>
+  </tr>
+  <tr>
+    <td rowspan="3">1</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 66, 200, 3)</td>
+    <td rowspan="3">(None, 64, 198, 18)</td>
+    <td rowspan="3">504</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">18</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">2</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 64, 198, 18)</td>
+    <td rowspan="3">(None, 62, 196, 24)</td>
+    <td rowspan="3">3912</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">24</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">3</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 62, 196, 24)</td>
+    <td rowspan="2">(None, 31, 98, 24)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">4</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 31, 98, 24)</td>
+    <td rowspan="3">(None, 29, 96, 36)</td>
+    <td rowspan="3">7812</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">36</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+    </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">5</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 29, 96, 36)</td>
+    <td rowspan="3">(None, 27, 94, 48)</td>
+    <td rowspan="3">15600</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">48</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">6</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 27, 94, 48)</td>
+    <td rowspan="2">(None, 13, 47, 48)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  </tr>
+  <tr>
+    <td rowspan="3">7</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 13, 47, 48)</td>
+    <td rowspan="3">(None, 11, 45, 64)</td>
+    <td rowspan="3">27712</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">64</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+    </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">8</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 11, 45, 64)</td>
+    <td rowspan="3">(None, 9, 43, 96)</td>
+    <td rowspan="3">55392</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">96</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">9</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 9, 43, 96)</td>
+    <td rowspan="2">(None, 4, 21, 96)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">10</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 4, 21, 96)</td>
+    <td rowspan="3">(None, 2, 19, 128)</td>
+    <td rowspan="3">110720</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">128</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">11</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 2, 19, 128)</td>
+    <td rowspan="2">(None, 1, 9, 128)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">12</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 1, 9, 128)</td>
+    <td rowspan="1">(None, 1, 9, 128)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">13</td>
+    <td rowspan="1">Flatten</td>
+    <td rowspan="1">(None, 1, 9, 128)</td>
+    <td rowspan="1">(None, 1152)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1"></td>
+    <td rowspan="1"></td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">14</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 1152)</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">115300</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">100</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">15</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">16</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">5050</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">50</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">17</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">18</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">510</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">10</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">19</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+   <tr>
+    <td rowspan="1">20</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">(None, 1)</td>
+    <td rowspan="1">11</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">1</td>
+  </tr>
+</table>
 
 
 ### Model 2
 Model 2 is a slightly lighter version of model 1, using 5 convolutional layers instead of 7 while keeping the same number of layers of other types. The focus was on decreasing the number of convolutional layers because they are by far more computationally intensive compared to fully-connected, dropout, and max_pooling layers. For instance, fully connected layers and pooling layers take only 5 to 10% of the computational time [^20]. This model has 222,395 and consists of a total of 18 layers.
-![image](https://user-images.githubusercontent.com/47282229/234192646-d72d9f0b-b394-48e5-bc29-ffc29cec9ca5.png)
-![image](https://user-images.githubusercontent.com/47282229/234192744-10953712-3836-4b71-868a-8007d998fc92.png)
 
+<table>
+  <tr>
+    <td>Layer Number</td>
+    <td>Layer Type</td>
+    <td>Layer Input</td>
+    <td>Layer Output</td>
+    <td>Number of Parameters</td>
+    <td>Layer Hyperparameter</td>
+    <td>Hyperparameter Values</td>
+  </tr>
+  <tr>
+    <td rowspan="3">1</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 66, 200, 3)</td>
+    <td rowspan="3">(None, 64, 198, 24)</td>
+    <td rowspan="3">672</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">24</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">2</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 64, 198, 24)</td>
+    <td rowspan="2">(None, 32, 99, 24)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">3</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 32, 99, 24)</td>
+    <td rowspan="3">(None, 30, 97, 36)</td>
+    <td rowspan="3">7812</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">36</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+    </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">4</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 30, 97, 36)</td>
+    <td rowspan="3">(None, 28, 95, 48)</td>
+    <td rowspan="3">15600</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">48</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">5</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 28, 95, 48)</td>
+    <td rowspan="2">(None, 14, 47, 48)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  </tr>
+  <tr>
+    <td rowspan="3">6</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 14, 47, 48)</td>
+    <td rowspan="3">(None, 12, 45, 64)</td>
+    <td rowspan="3">27712</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">64</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+    </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">7</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 12, 45, 64)</td>
+    <td rowspan="2">(None, 6, 22, 64) </td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="3">8</td>
+    <td rowspan="3">Convolution2D</td>
+    <td rowspan="3">(None, 6, 22, 64)</td>
+    <td rowspan="3"> (None, 4, 20, 64)</td>
+    <td rowspan="3">36928</td>
+    <td rowspan="1">Number of Filters</td>
+    <td rowspan="1">64</td>
+  </tr>
+  <tr>
+   <td> kernel size</td>
+   <td> (3,3)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> (1,1)</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="2">9</td>
+    <td rowspan="2">MaxPooling2D</td>
+    <td rowspan="2">(None, 4, 20, 64)</td>
+    <td rowspan="2">(None, 2, 10, 64)</td>
+    <td rowspan="2">0</td>
+    <td rowspan="1">kernel size</td>
+    <td rowspan="1">(2,2)</td>
+  </tr>
+  <tr>
+   <td> Strides</td>
+   <td> None </td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">10</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 2, 10, 64)</td>
+    <td rowspan="1"> (None, 2, 10, 64)  </td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">11</td>
+    <td rowspan="1">Flatten</td>
+    <td rowspan="1">(None, 2, 10, 64)</td>
+    <td rowspan="1">(None, 1280)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1"></td>
+    <td rowspan="1"></td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">12</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 1280)</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">128100</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">100</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">13</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">14</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 100)</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">5050</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">50</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">15</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">16</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 50)</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">510</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">10</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+  <tr>
+    <td rowspan="1">17</td>
+    <td rowspan="1">Dropout</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">0</td>
+    <td rowspan="1">Rate</td>
+    <td rowspan="1">0.5</td>
+  </tr>
+  <tr>
+   <td rowspan="1"> </td>
+  </tr>
+   <tr>
+    <td rowspan="1">18</td>
+    <td rowspan="1">Dense</td>
+    <td rowspan="1">(None, 10)</td>
+    <td rowspan="1">(None, 1)</td>
+    <td rowspan="1">11</td>
+    <td rowspan="1">Units</td>
+    <td rowspan="1">1</td>
+  </tr>
+</table>
 
 
 # Discussion
