@@ -857,38 +857,38 @@ For the ethics investigation, one way to continue this work is to explore the fi
 
 [^2]: S. Shalev-Shwartz, S. Shammah, A. Shashua, “On a formal model of safe and scalable self-driving cars,” in ARXIV, Aug. 2017. https://arxiv.org/abs/1708.06374
 
-[^3] P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
+[^3]: P. Kaur, S. Taghavi, Z. Tian, W. Shi, “A Survey on Simulators for Testing Self-Driving Cars,” 2021. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9499331&tag=1
 
-[^4] https://github.com/udacity/self-driving-car-sim
+[^4]: https://github.com/udacity/self-driving-car-sim
 
-[^5] M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
+[^5]: M.T. Duong, T.D. Do, M.H. Le, “Navigating Self-Driving Vehicles Using Convolutional Neural Network,” in 2018 4th International Conference on Green Technology and Sustainable Development (GTSD), pp. 607-610, 2018. https://ieeexplore.ieee.org/abstract/document/8595533
 
-[^6] N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. https://spectrum.ieee.org/can-you-program-ethics-into-a-selfdriving-car
+[^6]: N. J. Goodall, "Can you program ethics into a self-driving car?," in IEEE Spectrum, vol. 53, no. 6, pp. 28-58, June 2016. https://spectrum.ieee.org/can-you-program-ethics-into-a-selfdriving-car
 
-[^7] P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015. https://link.springer.com/chapter/10.1007/978-3-662-45854-9_4
+[^7]: P. Lin, "Why Ethics Matters for Autonomous Cars," in Autonomes Fahren, M. Maurer, J. Gerdes, B. Lenz, H. Winner, Springer Vieweg, 2015, pp. 69-85, 2015. https://link.springer.com/chapter/10.1007/978-3-662-45854-9_4
 
-[^8] S. Karnouskos, "Self-Driving Car Acceptance and the Role of Ethics," in IEEE Transactions on Engineering Management, vol. 67, no. 2, pp. 252-265, May 2020. https://ieeexplore.ieee.org/document/8542947
+[^8]: S. Karnouskos, "Self-Driving Car Acceptance and the Role of Ethics," in IEEE Transactions on Engineering Management, vol. 67, no. 2, pp. 252-265, May 2020. https://ieeexplore.ieee.org/document/8542947
 
-[^9] S. Nyholm, J. Smids, "The Ethics of Accident-Algorithms for Self-Driving Cars: an Applied Trolley Problem?," in Ethical Theory and Moral Practice, vol. 19, pp. 1275-1289, Jul. 2016. https://doi.org/10.1007/s10677-016-9745-2
+[^9]: S. Nyholm, J. Smids, "The Ethics of Accident-Algorithms for Self-Driving Cars: an Applied Trolley Problem?," in Ethical Theory and Moral Practice, vol. 19, pp. 1275-1289, Jul. 2016. https://doi.org/10.1007/s10677-016-9745-2
 
-[^10] T. Holstein, G. Dodig-Crnkovic, P. Pelliccione, "Ethical and Social Aspects of Self-Driving Cars," ARXIV, Jan. 2018. https://arxiv.org/abs/1802.04103
+[^10]: T. Holstein, G. Dodig-Crnkovic, P. Pelliccione, "Ethical and Social Aspects of Self-Driving Cars," ARXIV, Jan. 2018. https://arxiv.org/abs/1802.04103
 
-[^11] H. Douglas, "Inductive Risk and Values in Science," Philosophy of Science, vol. 67, no. 4, pp. 559-579, Dec, 2000. http://www.jstor.org/stable/188707
+[^11]: H. Douglas, "Inductive Risk and Values in Science," Philosophy of Science, vol. 67, no. 4, pp. 559-579, Dec, 2000. http://www.jstor.org/stable/188707
 
-[^12] S. Diekmann, M. Peterson, "The Role of Non-Epistemic Values in Engineering Models," Science and Engineering Ethics, vol. 19, no. 1, pp. 207-218, 2013. https://doi.org/10.1007/s11948-011-9300-4
+[^12]: S. Diekmann, M. Peterson, "The Role of Non-Epistemic Values in Engineering Models," Science and Engineering Ethics, vol. 19, no. 1, pp. 207-218, 2013. https://doi.org/10.1007/s11948-011-9300-4
 
-[^13] C. G. Hempel, "Science and Human Values," in Aspects of Scientific Explanation and Other Essays in the Philosophy of Science, The Free Press, 1965. pp. 81-96
+[^13]: C. G. Hempel, "Science and Human Values," in Aspects of Scientific Explanation and Other Essays in the Philosophy of Science, The Free Press, 1965. pp. 81-96
 
-[^14] K. Karaca, "Values and inductive risk in machine learning modelling: the case of binary classification models," in European Journal for Philosophy of Science,  vol. 11, no. 102, Oct. 2021. https://doi.org/10.1007/s13194-021-00405-1
+[^14]: K. Karaca, "Values and inductive risk in machine learning modelling: the case of binary classification models," in European Journal for Philosophy of Science,  vol. 11, no. 102, Oct. 2021. https://doi.org/10.1007/s13194-021-00405-1
 
-[^15] E. Sullivan. "How Values Shape the Machine Learning Opacity Problem," in Scientific Understanding and Representation, I. Lawler, K. Khalifa, E. Shech, Routledge, 2022, pp. 306-322. https://philarchive.org/archive/SULHVS-2
+[^15]: E. Sullivan. "How Values Shape the Machine Learning Opacity Problem," in Scientific Understanding and Representation, I. Lawler, K. Khalifa, E. Shech, Routledge, 2022, pp. 306-322. https://philarchive.org/archive/SULHVS-2
 
-[^16] E. Sullivan. "Understanding from Machine Learning Models," in The British Journal for the Philosophy of Science, vol. 73, no. 1, pp. 109-133, 2022. https://www.journals.uchicago.edu/doi/full/10.1093/bjps/axz035
+[^16]: E. Sullivan. "Understanding from Machine Learning Models," in The British Journal for the Philosophy of Science, vol. 73, no. 1, pp. 109-133, 2022. https://www.journals.uchicago.edu/doi/full/10.1093/bjps/axz035
 
-[^17] R. Salay, R. Queiroz, K. Czarnecki, "An analysis of ISO 26262: Using machine learning safely in automotive software," in ARVIX, Sep. 2017. https://arxiv.org/abs/1709.02435
+[^17]: R. Salay, R. Queiroz, K. Czarnecki, "An analysis of ISO 26262: Using machine learning safely in automotive software," in ARVIX, Sep. 2017. https://arxiv.org/abs/1709.02435
 
-[^18] Q. Rao and J. Frtunikj, "Deep Learning for Self-Driving Cars: Chances and Challenges," 2018 IEEE/ACM 1st International Workshop on Software Engineering for AI in Autonomous Systems (SEFAIAS), Gothenburg, Sweden, 2018, pp. 35-38. https://ieeexplore.ieee.org/document/8452728
+[^18]: Q. Rao and J. Frtunikj, "Deep Learning for Self-Driving Cars: Chances and Challenges," 2018 IEEE/ACM 1st International Workshop on Software Engineering for AI in Autonomous Systems (SEFAIAS), Gothenburg, Sweden, 2018, pp. 35-38. https://ieeexplore.ieee.org/document/8452728
 
-[^19] M. Podpora, G. P. Korbas, A.  Kawala-Janik, “YUV vs RGB – Choosing a Color Space for Human-Machine Interaction,” 2014 Federated Conference on Computer Science and Information Systems, Warsaw, Poland, 2014, pp 29-34. https://annals-csis.org/Volume_3/pliks/206.pdf
+[^19]: M. Podpora, G. P. Korbas, A.  Kawala-Janik, “YUV vs RGB – Choosing a Color Space for Human-Machine Interaction,” 2014 Federated Conference on Computer Science and Information Systems, Warsaw, Poland, 2014, pp 29-34. https://annals-csis.org/Volume_3/pliks/206.pdf
 
-[^20] K. He, J. Sun, “Convolutional Neural Networks at Constrained Time Cost,” in ARVIX, Dec. 2014. https://arxiv.org/abs/1412.1710
+[^20]: K. He, J. Sun, “Convolutional Neural Networks at Constrained Time Cost,” in ARVIX, Dec. 2014. https://arxiv.org/abs/1412.1710
