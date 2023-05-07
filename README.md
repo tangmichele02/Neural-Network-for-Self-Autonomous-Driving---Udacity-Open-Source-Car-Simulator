@@ -1,7 +1,8 @@
 ## By Aser Atawya and Michele Tang
 This project leverages the power of deep neural networks to design a model capable of simulating human driving in a virtual environment with the help of Udacity open-source self-driving car simulator.
 
-# Introduction
+# Building a Model
+## Introduction
 The development of deep neural network models has revolutionized the field of autonomous driving, providing a powerful tool for training autonomous cars to navigate and make decisions on the road. This project will leverage the power of deep neural networks to design a model capable of simulating human driving in a virtual environment with the help of open-source self-driving car simulators.
 
 Developing a self-driving car is a complex process that requires automating an array of human functions, such as perception of surroundings, following traffic laws, and decision-making. A typical self-driving car would incorporate many machine learning models with each model performing different functions; for instance, the self-driving car needs a computer-vision model to identify traffic lights and road signs as well as a reinforcement-learning model to make decisions, such as whether the car will take a turn. Also, the development of self-driving cars extends beyond the machine learning algorithms to entail development of sensors, radars, and hardware components that can provide accurate inputs to the machine learning models.
@@ -13,12 +14,12 @@ Previous research has also examined the development of self-driving cars using s
 <img src="https://user-images.githubusercontent.com/47282229/234185589-9713bb93-a7db-47df-8003-e164b73da702.png"  width="1200" height="300">
  
 
-# Methods
-## Data Sourcing
+## Methods
+### Data Sourcing
 The self-driving car simulator that we are currently using to collect the dataset and test the models is Udacity’s autonomous car simulator. One of the important drawbacks of the simulator is that it doesn’t have much functionality; for instance, there are no traffic signs, pedestrians, etc. It only provides training and testing for taking turns, speeding, and slowing down. The simulator has two tracks: the first one is fairly simple while the second is very complex with hard turns, bridges, shade, and inclines.
 
-## Data Augmentation:
-### Balancing the number of Turns
+### Data Augmentation:
+#### Balancing the number of Turns
 The data was sourced from Udacity's open-source car simulator using the two different routes. The following figure displays an image from each route.
 
 <img src=https://user-images.githubusercontent.com/47282229/233096879-8d650169-3d87-4855-b2ef-2c2a7648c858.png width="1200" height="250">
@@ -57,30 +58,30 @@ And this histogram shows the distribution after data augmentation
 </p>
 The number of right and left turns is more balanced compared to the original data, and the distribution of the data is more uniform after removing some of the data corresponding to going straight.
 
-### Noise
+#### Noise
 To make the model more robust and deployable, we augmented the data by adding noise in the form of randomized rotations, shifts, and blurs. Furthermore, we decided to change the brightness of some of the images randomly to ensure the model is capable of working in both day and night and in shade. Also, the added noise will help the model escape local minimum and avoid over-fitting.
 This image shows an image after and before adding noise.
 
 <img src=https://user-images.githubusercontent.com/47282229/233096656-ca066551-9f71-456a-a3eb-f4a2e67118cb.png width="1200" height="250">
 
-## Data Pre-Processing
-### Normalization
+### Data Pre-Processing
+#### Normalization
 We normalized the pixel values to lie between 0 and 1 to reduce the effect of variations in lighting, contrast, and color.
-### YUV
+#### YUV
 We decided to use YUV color space over RGB to separate color and brightness information, allowing for more efficient analysis of the image data. [^19]
-### Standardization
+#### Standardization
 We standardized the pixel values to have consistent mean and standard deviation to standardize the brightness and contrast of the images, making them more comparable and easier to process by the neural network.
-### Resize
+#### Resize
 We cropped the image to disregard irrelevant features, such as the sky and the verge of the road, and resized the image for lighter, faster processing
-### Gaussian Blur
+#### Gaussian Blur
 We used Gaussian Blur in image pre-processing to reduce image noise and smooth out details.
 
 This image shows the original image vs the pre-processed image.
 
 <img src= https://user-images.githubusercontent.com/47282229/233095819-8d84fbda-7a07-42b8-8c5e-af4118b2395a.png width="1200" height="250">
 
-## Model Design
-### Model 1
+### Model Design
+#### Model 1
 The model used 7 convolution layers with each one having 1.5 more filters than the previous one to capture more abstractions and complex patterns. The first convolution layer had 18 filters, and the last one had 128 filters. To lighten the model, tackle over-fitting, and down-sample the output feature map, we used four max_pooling layers, halving the output shape after every two convolutional layers and after the last layer. After that, we used a flatten layer to flatten the output of convolutional layers and four dense layers as the backbone of the fully connected model that outputs the steering angle. To reduce overfitting, we used three dropout layers, dropping 50% of the inputs after each of the first three dense layers. In model compiling, ADAM optimizer was used with a learning rate of 0.0001. The model had a total of 20 layers and 342,523 parameters.
 
 <table>
@@ -409,7 +410,7 @@ The model used 7 convolution layers with each one having 1.5 more filters than t
 </table>
 
 
-### Model 2
+#### Model 2
 Model 2 is a slightly lighter version of model 1, using 5 convolutional layers instead of 7 while keeping the same number of layers of other types. The focus was on decreasing the number of convolutional layers because they are by far more computationally intensive compared to fully-connected, dropout, and max_pooling layers. For instance, fully connected layers and pooling layers take only 5 to 10% of the computational time [^20]. This model has 222,395 and consists of a total of 18 layers.
 
 <table>
@@ -706,11 +707,11 @@ For the dropout rate of both models, 0.5 was picked after testing the model with
  
 
 
-# Discussion
-## Evaluation Metric
+## Discussion - Model
+### Evaluation Metric
 The main metric used to evaluate model performance is the loss calculated as the mean squared error between the actual and the predicted steering angle. MSE was used over MAE to penalize extreme errors because in real-life, a considerably poor prediction will cause a car accident and may lead to loss of life and property.
 
-## Choice of Activation Function
+### Choice of Activation Function
 We tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were over-fitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively. ReLU was picked as the main activation function to counter over-fitting. This resistance to over-fitting can be explained by the fact that the ReLU function sets any negative values to zero, which reduces the complexity of the model and prevents the amplification of noise. However, the choice of activation function alone is unlikely to be the sole cause of overfitting; over-fitting should be further analyzed in the greater context of the network size and complexity, the number of epochs and training iterations, the choice of hyperparameters, etc.
 
 
@@ -720,7 +721,7 @@ We tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite si
  </p>
 
 
-## Lighter Model vs Original
+### Lighter Model vs Original
 The table summarizes the differences between the original and the lighter model. The model was using mini-batch stochastic gradient with batch size = 100.
 
 |        Point of Comparison   | Original Model      | Lighter Model     |
@@ -743,7 +744,7 @@ With one model having lower loss with ReLU and the other having lower loss with 
     <img src=https://user-images.githubusercontent.com/47282229/233094117-f2e511e3-2ac7-4af0-938e-3ab6e1389a5c.png width="500" height="325">
  </p>
  
-## Effect of Noise
+### Effect of Noise
 
 To quantify the effect of adding noise on model performance, we tested the original model using ReLU activation function and mini-batch of size = 100 with and without adding noise to the training data. Results visualized below show that the augmented data considerably reduced both validation and training loss, especially in the starting epochs. The lowest validation loss of the model with augmented data was recorded in the 23rd epoch at 0.0839, which is lower than the 0.0847 recorded in the 25th epoch as the minimum validation loss of the model without data. This improvement in performance can be explained by the effect of adding noise in smoothing out the data and reducing the impact of outliers. And since the noise is completely randomized, we avoid introducing bias that can negatively impact the performance of the model. However, we notice the model with noise started over-fitting and recorded higher validation loss in the 24th and the 25th epochs, which may seem counterintuitive since adding noise primarily aims to reduce overfitting. However, this can be explained by the fact that we added a very high level of noise, so the model started memorizing the noise in the training data, leading to overfitting. This issue will be tackled by reducing noise level.
 
@@ -753,7 +754,7 @@ To quantify the effect of adding noise on model performance, we tested the origi
 
  </p>
  
-## Stochastic gradient descent vs Mini-batch stochastic gradient descent vs Batch gradient descent
+### Stochastic gradient descent vs Mini-batch stochastic gradient descent vs Batch gradient descent
 The following table displays the running time. The GPU we are using is the RTX 2060 Ti laptop version with 6 GB vram for reference.
 
 | stochastic gradient descent        | mini-batch ( batch size = 100) stochastic gradient     |
@@ -780,7 +781,7 @@ The mini-batch stochastic gradient descent with batch size = 100 achieved the lo
  <img src=https://user-images.githubusercontent.com/47282229/233095554-dd35aec8-5c16-42f4-89cb-5cca1a28c549.png width="500" height="325">
 </p>
 
-## ResNet50, ResNet101, Xception, and MobileNetV2
+### ResNet50, ResNet101, Xception, and MobileNetV2
 To evaluate the model performance, we decided to deploy various pre-designed models along with pre-trained weights from Keras Applications. We chose Xception, ResNet50, and ResNet101 as the heavy models and MobileNetV2 as the light model. The validation loss for the four models ranged from 0.3 to 0.32 in the 25 epochs, which implies that either they were stuck in a local minimum or that the models reached their maximum performance. Also, the heavy models took significantly longer compared to the lighter model, which was expected given the depth and the number of parameters. For instance, the Xception model took 168 minutes to complete the 25 epochs and the ResNet 50 took 268 minutes. We were planning for further testing with those models while varying the learning rate to determine whether the model was actually stuck in a local minimum, but the computational power of Aser's local device was an obstacle.
 
 <p align="center">
@@ -792,7 +793,7 @@ To evaluate the model performance, we decided to deploy various pre-designed mod
  <img src=https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png width="500" height="325">
 </p>
 
-# Conclusion
+## Conclusion - Model
 In conclusion, the project successfully utilized a convolutional neural network model to accurately predict the steering angle of a self-driving car, surpassing some of the best pre-trained models, such as ResNet50, ResNet101, and Xception in our initial testing. It's important to point out to the fact that the pre-trained models need to be further tested with different learning rates to ensure the success of our mode. The model was designed with multiple convolutional and fully connected layers, along with appropriate ReLU activation function to enable effective feature extraction and decision-making. The data augmentation techniques, including adding noise and balancing the data, the choice of mini-batch gradient descent, and the use of dropout layers added to the robustness of the model evident by the fact that it was not over-fitting even after 25 epochs -- while using ReLU activation function. A significant pitfall worth noting in model testing and training is the computational limitations of the machine, which prevented further testing of the pre-trained models and the use of batch gradient descent. So, further testing is essential as explained in the next section. Overall, the project highlights the potential of using deep learning techniques, such as convolutional neural networks, to make decisions based on image data and being deployed in developing advanced self-driving car systems.
 
 # Ethics Investigation
@@ -839,14 +840,16 @@ In order to promote accountability, self-driving cars need to be designed in a w
 
 ### Michele
 
-## Conclusion
+## Conclusion - Ethics Investigation
 Self-driving car ethics is a complicated and complex area of research. There are different approaches to studying it, including using moral frameworks and investigating different social consequences. One novel approach of analysis is through the lens of inductive risk and non-epistemic values. Ultimately, consideration of inductive risk and non-epistemic values is crucial and relevant to the study of self-driving car ethics.
 
 
-# Reflection
+# Reflection - Final
 ## Future Development and Recommendations
+### Model
 For the model, another way to test the it's robustness is using the data from route 1 as the training data and the data from route 2 as the testing data and vice versa to see how the model works in completely new environments. Contingent on available computational resources, the model should be tested with varying batch sizes larger than 1/16 the size of the data. Furthermore, to tune more hyper-parameters, such as the learning rate of the Adam optimizer, the choice of activation function, and the depth and the width of layers, further testing has to be executed while varying those parameters until the best results are achieved in terms of validation loss and over-fitting. While the effect of data augmentation has been quantified by measuring model performance with and without noise, the analysis of data augmentation can’t be considered thorough unless further testing is executed to measure the effect of every specific augmentation and preprocessing function and using different activation functions. To address the limited computational power of Aser’s local device, the class server can be used to speed up model testing, but re-installing dependencies may be inconvenient; however, the Anaconda environment is provided on this GitHub repository. In addition, even though the model is considerably faster than the pre-trained models, such as ResNet50 and Xception, it's considerably slow, taking 30 minutes for training and testing. One way to optimize the model is by using quantization to reduce the number of parameters and increase running speed so that the neural networks can be deployed on embedded systems. The efficiency of the quantization will be measured by comparing the running speed of the original model and the quantized model while keeping a negligible drop in accuracy.
 
+### Ethics Investigation
 For the ethics investigation, one way to continue this work is to explore the field of explainable artificial intelligence and consider how that changes the landscape of inductive risk for engineers. Explainable artificial intelligence might help engineers have more control over their models and increase understanding of models, which could have a large impact on risk of error. Next time, we might consider doing more exploratory work into fields of self-driving car ethics that are not specific to moral responsibility.
 
 # References
