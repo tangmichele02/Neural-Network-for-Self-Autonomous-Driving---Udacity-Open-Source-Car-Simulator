@@ -699,7 +699,7 @@ Model 2 is a slightly lighter version of model 1, using 5 convolutional layers i
 For the dropout rate of both models, 0.5 was picked after testing the model with different values. When we used rate = 0.7, both the validation loss and the training loss were quite higher compared to the model with rate = 0.5. The results of both models are visualized as follow.
 
 
-<p float="left">
+<p align="center">
     <img src=https://user-images.githubusercontent.com/47282229/236675084-76cc67df-489c-4913-bfab-eea995ecc84d.png width="500" height="325">
     <img src=https://user-images.githubusercontent.com/47282229/236675171-6db4c403-ae25-4e33-ac53-9d1f78431906.png width="500" height="325">
  </p>
