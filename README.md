@@ -411,7 +411,7 @@ The model used 7 convolution layers with each one having 1.5 more filters than t
 
 
 #### Model 2
-Model 2 is a slightly lighter version of model 1, using 5 convolutional layers instead of 7 while keeping the same number of layers of other types. The focus was on decreasing the number of convolutional layers because they are by far more computationally intensive compared to fully-connected, dropout, and max_pooling layers. For instance, fully connected layers and pooling layers take only 5 to 10% of the computational time[^20]. This model has 222,395 and consists of a total of 18 layers.
+Model 2 is a slightly lighter version of model 1, using 5 convolutional layers instead of 7 while keeping the same number of layers of other types. The focus was on decreasing the number of convolutional layers because they are by far more computationally intensive compared to fully-connected, dropout, and max_pooling layers. For instance, fully connected layers and pooling layers take only 5 to 10% of the computational time[^20]. This model has 222,395 parameters and consists of a total of 18 layers.
 
 <table>
   <tr>
