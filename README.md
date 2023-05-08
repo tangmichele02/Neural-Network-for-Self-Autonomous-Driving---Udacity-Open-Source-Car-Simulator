@@ -712,7 +712,7 @@ For the dropout rate of both models, 0.5 was picked after testing the model with
 
 ## Discussion - Model
 ### Evaluation Metric
-The main metric used to evaluate model performance is the loss calculated as the mean squared error between the actual and the predicted steering angle. MSE was used over MAE to penalize extreme errors because in real-life, a considerably poor prediction will cause a car accident and may lead to loss of life and property.
+The main metric used to evaluate the model performance is whether the car crashes while it is driving autonomously. Another metric is the loss calculated as the mean squared error between the actual and the predicted steering angle. MSE was used over MAE to penalize extreme errors because in real-life, a considerably poor prediction will cause a car accident and may lead to loss of life and property.
 
 ### Choice of Activation Function
 We tested the usage of SoftMax, ReLU and eLU. While eLU and ReLU shared quite similar performance in terms of loss value, the models running with eLU were overfitting while those running with ReLU were not. SoftMax was considerably worse with loss values ranging around 0.3 while that of eLU and ReLU ranging around 0.09 and 0.08 respectively. ReLU was picked as the main activation function to counter overfitting. This resistance to overfitting can be explained by the fact that the ReLU function sets any negative values to zero, which reduces the complexity of the model and prevents the amplification of noise. However, the choice of activation function alone is unlikely to be the sole cause of overfitting; overfitting should be further analyzed in the greater context of the network size and complexity, the number of epochs and training iterations, the choice of hyperparameters, etc.
@@ -795,6 +795,12 @@ To evaluate the model performance, we decided to deploy various pre-designed mod
 <p align="center">
  <img src=https://user-images.githubusercontent.com/47282229/233204206-e5d2bb41-4341-498a-bfa9-5547fd908b4f.png width="500" height="325">
 </p>
+
+
+### Model Testing using Simulator
+This video displays the car driving autonomously using the original model trained with mini-batch gradient descent and ReLU activation function after augmenting dataset by adding noise.
+
+
 
 ## Conclusion - Model
 In conclusion, the project successfully utilized a convolutional neural network model to accurately predict the steering angle of a self-driving car, surpassing some of the best pre-trained models, such as ResNet50, ResNet101, and Xception in our initial testing. It's important to point out to the fact that the pre-trained models need to be further tested with different learning rates to ensure the success of our mode. The model was designed with multiple convolutional and fully connected layers, along with appropriate ReLU activation function to enable effective feature extraction and decision-making. The data augmentation techniques, including adding noise and balancing the data, the choice of mini-batch gradient descent, and the use of dropout layers added to the robustness of the model evident by the fact that it was not overfitting even after 25 epochs -- while using ReLU activation function. A significant pitfall worth noting in model testing and training is the computational limitations of the machine, which prevented further testing of the pre-trained models and the use of batch gradient descent. So, further testing is essential as explained in the next section. Overall, the project highlights the potential of using deep learning techniques, such as convolutional neural networks, to make decisions based on image data and being deployed in developing advanced self-driving car systems.
