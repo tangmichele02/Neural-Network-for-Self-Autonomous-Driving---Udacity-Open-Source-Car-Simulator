@@ -799,7 +799,9 @@ To evaluate the model performance, we decided to deploy various pre-designed mod
 
 ### Model Testing using Simulator
 This video displays the car driving autonomously using the original model trained with mini-batch gradient descent and ReLU activation function after augmenting dataset by adding noise.
-
+<div align="center">
+  <video src=https://user-images.githubusercontent.com/47282229/236750866-4e0ed38d-1ef4-418d-aef8-e07ea5695667.mp4 width="600" height="400" />
+</div> 
 
 
 ## Conclusion - Model
