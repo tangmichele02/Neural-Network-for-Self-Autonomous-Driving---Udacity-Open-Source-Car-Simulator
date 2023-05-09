@@ -19,7 +19,7 @@ Previous research has also examined the development of self-driving cars using s
 
 ## Methods
 ### Data Sourcing
-The self-driving car simulator that we are currently using to collect the dataset and test the models is Udacity’s autonomous car simulator. One of the important drawbacks of the simulator is that it doesn’t have much functionality; for instance, there are no traffic signs, pedestrians, etc. It only provides training and testing for taking turns, speeding, and slowing down. The simulator has two tracks: the first one is fairly simple while the second is very complex with hard turns, bridges, shade, and inclines.
+The self-driving car simulator that we are currently using to collect the dataset and test the models is [Udacity’s autonomous car simulator](https://github.com/udacity/self-driving-car-sim). One of the important drawbacks of the simulator is that it doesn’t have much functionality; for instance, there are no traffic signs, pedestrians, etc. It only provides training and testing for taking turns, speeding, and slowing down. The simulator has two tracks: the first one is fairly simple while the second is very complex with hard turns, bridges, shade, and inclines.
 
 ### Data Augmentation:
 #### Balancing the number of Turns
